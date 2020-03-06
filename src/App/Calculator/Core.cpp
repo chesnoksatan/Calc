@@ -26,12 +26,17 @@ Core::Core(QObject *parent) : QObject(parent)
 
     QObject::connect(_calcController, &CalculatorController::signalChangeQueueResultsSize,
                      _form, &FormController::updateSizeQueueResults);
-
 }
 
 Core::~Core()
 {
-    _calcThread->quit();
+
+    if (_calcThread->isRunning())
+    {
+        _calcController->abort();
+        _calcThread->quit();
+        _calcThread->wait();
+    }
 
     delete _calcThread;
     delete _calcController;
@@ -61,8 +66,8 @@ void Core::startThread()
     QObject::connect(_calcThread, &QThread::started,
                      _calcController, &CalculatorController::calculate);
 
-    QObject::connect(_calcController, &CalculatorController::destroyed,
-                     _calcThread, &QThread::quit);
+    QObject::connect(_calcController, SIGNAL(finished()),
+                     _calcThread, SLOT(quit()));
 
     _calcThread->start();
 }

@@ -20,8 +20,6 @@ CONFIG(debug, debug|release) {
 
 #определяются пути к библиотекам lib.*/
 LIBS_PATH = $${PROJECT_ROOT_PATH}/lib.$${OS_SUFFIX}/
-#определяются пути к плагинам/
-PLUGIN_PATH = $${LIBS_PATH}/plugins
 
 #к открытым заголовочным файлам include/,
 INC_PATH = $${PROJECT_ROOT_PATH}/include/
@@ -31,9 +29,6 @@ IMPORT_PATH = $${PROJECT_ROOT_PATH}/import/
 
 #к экспортируемым заголовочным файлам export/
 EXPORT_PATH = $${PROJECT_ROOT_PATH}/export/
-
-#к графическому интерфейсу qml
-QML_PATH = $${EXPORT_PATH}/SchemeUI/
 
 #и путь к каталогу с бинарниками bin/:
 BIN_PATH = $${PROJECT_ROOT_PATH}/bin/$${BUILD_FLAG}/$${TARGET}

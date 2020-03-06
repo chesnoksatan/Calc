@@ -32,6 +32,11 @@ void CalculatorController::calculate()
 {
     forever {
 
+        QCoreApplication::instance()->processEvents();
+
+        if(_abort)
+            break;
+
         if (!QueueRequests.isEmpty()) {
             sleep(_delay);
             mutex.lock();
@@ -48,6 +53,8 @@ void CalculatorController::calculate()
             mutex.unlock();
         }
     }
+
+    emit finished();
 }
 
 void CalculatorController::stringToExpression(int &TypeWork, double &OperandA,

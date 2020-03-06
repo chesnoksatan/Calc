@@ -6,6 +6,7 @@
 #include <QMutex>
 #include <QTime>
 #include <QQueue>
+#include <QCoreApplication>
 
 #include <unistd.h>
 
@@ -20,6 +21,11 @@ public:
     void setDelay(const int delay);
     void addRequest(const QString request);
     QPair<double, int> getResult();
+
+    /*!
+     *   \brief прекращение работы потока
+     */
+    void abort() { _abort = true; }
 
 signals:
     void signalChangeQueueRequestsSize(const int size);
@@ -38,6 +44,7 @@ public slots:
 private:
     int _delay = 1;
     QMutex mutex;
+    std::atomic<bool> _abort;///< флаг прекращения потока
 
     /*!
      * \brief Очередь запросов

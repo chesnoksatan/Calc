@@ -6,7 +6,3 @@ macx:
 else: unix: QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN/../../lib.$${OS_SUFFIX}/
 
 QMAKE_LFLAGS_RPATH=
-
-HEADERS += \
-    $$PWD/src/include/interface/linking/iheader.h \
-    $$PWD/src/include/interface/linking/IFileWorker.h
