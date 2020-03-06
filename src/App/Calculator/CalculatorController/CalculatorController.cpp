@@ -13,44 +13,45 @@ void CalculatorController::setDelay(const int delay)
 
 void CalculatorController::addRequest(const QString request)
 {
-    QMutexLocker locker(&mutex);
-    QueueRequests.enqueue(request);
+    QMutexLocker locker(&_mutex);
+    _queueRequests.enqueue(request);
 
-    emit signalChangeQueueRequestsSize(QueueRequests.size());
+    emit signalChangeQueueRequestsSize(_queueRequests.size());
 }
 
 QPair<double, int> CalculatorController::getResult()
 {
-    QMutexLocker locker(&mutex);
+    QMutexLocker locker(&_mutex);
 
-    if (!QueueResults.isEmpty())
-        return QueueResults.last();
+    if (!_queueResults.isEmpty())
+        return _queueResults.last();
     return QPair<double, int>(0, -2);
 }
 
 void CalculatorController::calculate()
 {
     forever {
+        _abort = false;
 
         QCoreApplication::instance()->processEvents();
 
         if(_abort)
             break;
 
-        if (!QueueRequests.isEmpty()) {
-            sleep(_delay);
-            mutex.lock();
+        if (!_queueRequests.isEmpty()) {
+            QThread::sleep(_delay);
+            _mutex.lock();
 
-            QString currentRequest = QueueRequests.dequeue();
+            QString currentRequest = _queueRequests.dequeue();
 
-            emit signalChangeQueueRequestsSize(QueueRequests.size());
+            emit signalChangeQueueRequestsSize(_queueRequests.size());
 
-            QueueResults.enqueue(getAnswer(currentRequest));
+            _queueResults.enqueue(getAnswer(currentRequest));
 
             emit signalAnswerReady();
-            emit signalChangeQueueResultsSize(QueueResults.size());
+            emit signalChangeQueueResultsSize(_queueResults.size());
 
-            mutex.unlock();
+            _mutex.unlock();
         }
     }
 

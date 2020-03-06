@@ -66,8 +66,8 @@ void Core::startThread()
     QObject::connect(_calcThread, &QThread::started,
                      _calcController, &CalculatorController::calculate);
 
-    QObject::connect(_calcController, SIGNAL(finished()),
-                     _calcThread, SLOT(quit()));
+    QObject::connect(_calcController, &CalculatorController::finished,
+                     _calcThread, &QThread::quit);
 
     _calcThread->start();
 }

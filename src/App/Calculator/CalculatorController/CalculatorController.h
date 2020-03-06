@@ -7,8 +7,7 @@
 #include <QTime>
 #include <QQueue>
 #include <QCoreApplication>
-
-#include <unistd.h>
+#include <QThread>
 
 #include "CalcLib.h"
 
@@ -32,6 +31,11 @@ signals:
     void signalChangeQueueResultsSize(const int size);
     void signalAnswerReady();
 
+    /*!
+     *   \brief сигнал прекращение завершения потока
+     */
+    void finished();
+
 public slots:
     /*!
      * \brief Основная функция класса
@@ -43,19 +47,19 @@ public slots:
 
 private:
     int _delay = 1;
-    QMutex mutex;
+    QMutex _mutex;
     std::atomic<bool> _abort;///< флаг прекращения потока
 
     /*!
      * \brief Очередь запросов
      */
-    QQueue<QString> QueueRequests;
+    QQueue<QString> _queueRequests;
 
     /*!
      * \brief Очередь результатов
      *        Каждый элемент представляет собой пару вида: <результат, код ошибки>
      */
-    QQueue<QPair<double, int>> QueueResults;
+    QQueue<QPair<double, int>> _queueResults;
 
     /*!
      * \brief Функция преобразования строкового запроса в операнды и операцию
