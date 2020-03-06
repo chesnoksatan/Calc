@@ -28,8 +28,8 @@ SOURCES += \
         CalcLib.cpp
 
 HEADERS += \
-        CalcLib.h \
-        calclib_global.h 
+        ../../include/CalcLib.h \
+        ../../include/calclib_global.h
 
 unix {
     target.path = /usr/lib

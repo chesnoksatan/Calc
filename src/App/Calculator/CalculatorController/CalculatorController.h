@@ -9,7 +9,7 @@
 
 #include <unistd.h>
 
-#include "../CalcLib/CalcLib.h"
+#include "CalcLib.h"
 
 class CalculatorController : public QObject
 {

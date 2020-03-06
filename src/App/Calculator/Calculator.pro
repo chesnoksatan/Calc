@@ -30,7 +30,4 @@ HEADERS += \
 RESOURCES += \
     ./export/qml/qml.qrc
 
-unix:!macx: LIBS += -L$$PWD/../lib/ -lCalcLib
-
-INCLUDEPATH += $$PWD/../lib/
-DEPENDPATH += $$PWD/../lib/
+LIBS += -lCalcLib

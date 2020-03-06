@@ -8,7 +8,7 @@
 #include <QSettings>
 #include <QDebug>
 
-#include "../CalcLib/CalcLib.h"
+#include "CalcLib.h"
 
 class FormController : public QObject
 {
