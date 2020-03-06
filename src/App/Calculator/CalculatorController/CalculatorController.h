@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QDebug>
 #include <QMutex>
-#include <QTime>
 #include <QQueue>
 #include <QCoreApplication>
 #include <QThread>
@@ -40,14 +39,13 @@ public slots:
     /*!
      * \brief Основная функция класса
      *        Извлекает из очереди запросов элемент и отправляет его на вычисление
-     * \bug В релизной сборке проекта не производит вычислений
-     *      Предполагаю, что возникает состояние гонки
      */
     void calculate();
 
 private:
     int _delay = 1;
-    QMutex _mutex;
+    QMutex _mutexRequests;
+    QMutex _mutexResults;
     std::atomic<bool> _abort;///< флаг прекращения потока
 
     /*!
