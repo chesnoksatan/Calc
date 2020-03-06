@@ -1,0 +1,12 @@
+#Переменная DESTDIR указывает путь, в который будет помещен готовый исполняем
+DESTDIR = $${BIN_PATH}/
+#определяется путь поиска динамических библиотек по умолчанию
+
+macx:
+else: unix: QMAKE_LFLAGS += -Wl,--rpath=\\\$\$ORIGIN/../../lib.$${OS_SUFFIX}/
+
+QMAKE_LFLAGS_RPATH=
+
+HEADERS += \
+    $$PWD/src/include/interface/linking/iheader.h \
+    $$PWD/src/include/interface/linking/IFileWorker.h
