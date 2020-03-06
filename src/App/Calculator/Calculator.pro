@@ -1,5 +1,8 @@
 QT += qml quick quickcontrols2 widgets
 
+include( ../../../common.pri )
+include( ../../../app.pri )
+
 CONFIG += c++11
 CONFIG -= app_bundle
 

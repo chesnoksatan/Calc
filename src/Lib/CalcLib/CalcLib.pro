@@ -3,6 +3,8 @@
 # Project created by QtCreator 2020-02-28T13:50:49
 #
 #-------------------------------------------------
+include( ../../../common.pri )
+include( ../../../lib.pri )
 
 QT       += widgets
 
