@@ -3,7 +3,8 @@ PROJECT_ROOT_PATH = $${PWD}
 
 # Далее определяем то, под какой ОС происходит сборка
 # и устанавливаем соответствующим образом значение суффикса OS_SUFFIX.
-OS_SUFFIX = linux
+win32: OS_SUFFIX = win32
+linux-g++: OS_SUFFIX = linux
 
 # в зависимости от режима сборки (debug или release)
 # определяется значение BUILD_FLAG, которое будет указывать
@@ -13,7 +14,7 @@ OS_SUFFIX = linux
 # За счет этого мы можем иметь единый каталог для библиотек и не допускать конфликтов имен
 CONFIG(debug, debug|release) {
     BUILD_FLAG = debug
-    LIB_SUFFIX = _d
+    LIB_SUFFIX = d
 } else {
     BUILD_FLAG = release
 }

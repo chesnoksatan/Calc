@@ -2,7 +2,6 @@
 #define CALCULATORCONTROLLER_H
 
 #include <QObject>
-#include <QDebug>
 #include <QMutex>
 #include <QQueue>
 #include <QCoreApplication>
@@ -16,22 +15,40 @@ class CalculatorController : public QObject
 public:
     explicit CalculatorController(QObject *parent = nullptr);
 
+    /*!
+     *   \brief Установка задержки вычислений
+     */
     void setDelay(const int delay);
+
+    /*!
+     *   \brief Добавить в очередь запросов новый запрос
+     */
     void addRequest(const QString request);
+
+    /*!
+     *   \brief Прочитать последний результат вычислений
+     */
     QPair<double, int> getResult();
 
     /*!
-     *   \brief прекращение работы потока
+     *   \brief Прекращение работы потока
      */
     void abort() { _abort = true; }
 
 signals:
-    void signalChangeQueueRequestsSize(const int size);
-    void signalChangeQueueResultsSize(const int size);
-    void signalAnswerReady();
 
     /*!
-     *   \brief сигнал прекращение завершения потока
+     *   \brief Сигнал изменения размеров очереди запросов
+     */
+    void signalChangeQueueRequestsSize(const int size);
+
+    /*!
+     *   \brief Сигнал изменения размеров очереди результатов
+     */
+    void signalChangeQueueResultsSize(const int size);
+
+    /*!
+     *   \brief Сигнал прекращение завершения потока
      */
     void finished();
 
@@ -43,21 +60,16 @@ public slots:
     void calculate();
 
 private:
-    int _delay = 1;
-    QMutex _mutexRequests;
-    QMutex _mutexResults;
-    std::atomic<bool> _abort;///< флаг прекращения потока
+    int _delay = 1; ///< Количество секунд задержки вычислений
 
-    /*!
-     * \brief Очередь запросов
-     */
-    QQueue<QString> _queueRequests;
+    QMutex _mutexRequests; ///< Мьютекс для очереди запросов
+    QMutex _mutexResults; ///< Мьютекс для очереди результатов
 
-    /*!
-     * \brief Очередь результатов
-     *        Каждый элемент представляет собой пару вида: <результат, код ошибки>
-     */
-    QQueue<QPair<double, int>> _queueResults;
+    std::atomic<bool> _abort; ///< Флаг прекращения потока
+
+    QQueue<QString> _queueRequests; ///< Очередь запросов
+
+    QQueue<QPair<double, int>> _queueResults; ///< Очередь результатов
 
     /*!
      * \brief Функция преобразования строкового запроса в операнды и операцию

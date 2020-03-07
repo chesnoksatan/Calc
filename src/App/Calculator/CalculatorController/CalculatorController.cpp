@@ -8,7 +8,8 @@ CalculatorController::CalculatorController(QObject *parent)
 
 void CalculatorController::setDelay(const int delay)
 {
-    _delay = delay;
+    if (delay != _delay)
+        _delay = delay;
 }
 
 void CalculatorController::addRequest(const QString request)
@@ -32,7 +33,8 @@ void CalculatorController::calculate()
 {
     _abort = false;
     QString currentRequest("");
-    forever {
+    forever
+    {
 
         QCoreApplication::instance()->processEvents();
 
@@ -40,13 +42,15 @@ void CalculatorController::calculate()
             break;
 
         _mutexRequests.lock();
-        if (!_queueRequests.isEmpty()) {
+        if (!_queueRequests.isEmpty())
+        {
             currentRequest = _queueRequests.dequeue();
             emit signalChangeQueueRequestsSize(_queueRequests.size());
         }
         _mutexRequests.unlock();
 
-        if (currentRequest != "") {
+        if (currentRequest != "")
+        {
             QPair<double, int> currentResult = getAnswer(currentRequest);
 
             QThread::sleep(_delay);
@@ -55,7 +59,6 @@ void CalculatorController::calculate()
             _queueResults.enqueue(currentResult);
             _mutexResults.unlock();
 
-            emit signalAnswerReady();
             emit signalChangeQueueResultsSize(_queueResults.size());
 
             currentRequest = "";

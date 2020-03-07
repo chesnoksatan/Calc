@@ -291,10 +291,10 @@ ApplicationWindow {
         anchors.right: parent.right
 
         Label {text: qsTr("QueueRequests:") ;Layout.maximumHeight: 25}
-        Label {objectName: "QueueRequests"; horizontalAlignment: Text.AlignHCenter; Layout.fillWidth: true; Layout.maximumHeight: 25; text: "0"; /*font.pointSize: 9;*/}
+        Label {objectName: "QueueRequests"; horizontalAlignment: Text.AlignHCenter; Layout.fillWidth: true; Layout.maximumHeight: 25; text: "0";}
 
         Label {text: qsTr("QueueResults:") ; Layout.minimumWidth: 127;Layout.maximumHeight: 25}
-        Label {objectName: "QueueResults"; horizontalAlignment: Text.AlignHCenter; Layout.fillWidth: true; Layout.maximumHeight: 25; text: "0"; /*font.pointSize: 9;*/}
+        Label {objectName: "QueueResults"; horizontalAlignment: Text.AlignHCenter; Layout.fillWidth: true; Layout.maximumHeight: 25; text: "0";}
     }
 
     Rectangle {
@@ -318,8 +318,6 @@ ApplicationWindow {
             id: flick
 
             anchors.fill: parent
-            contentWidth: _console.paintedWidth
-            contentHeight: _console.paintedHeight
 
             interactive: true
             clip: true
@@ -347,6 +345,8 @@ ApplicationWindow {
 
                 font.pointSize: 10
                 readOnly: true
+
+                selectByMouse: true
 
                 textFormat: TextEdit.RichText
             }

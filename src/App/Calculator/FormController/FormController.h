@@ -6,7 +6,6 @@
 #include <QQmlContext>
 #include <QObject>
 #include <QSettings>
-#include <QDebug>
 
 #include "CalcLib.h"
 
@@ -18,7 +17,7 @@ public:
 
 private:
     QQmlApplicationEngine* _engine;
-    QObject* mainWindow;
+    QObject* _mainWindow;
 
     QSettings _settings;
 
@@ -61,8 +60,21 @@ public slots:
     void createAnswer(const double calculationResult, const int errorCode);
 
 signals:
+
+    /*!
+     * \brief Сигнал добавления записи в консоль
+     *        Обрабатывается в qml части приложения
+     */
     void signalUpdateConsole(const int errorCode, const QString msg);
+
+    /*!
+     * \brief Сигнал добавления нового запроса на вычисление
+     */
     void signalSendRequest(const QString request);
+
+    /*!
+     * \brief Сигнал установки задержки вычислений
+     */
     void signalSetDelay(const int delay);
 };
 

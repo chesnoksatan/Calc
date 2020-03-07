@@ -2,10 +2,7 @@
 #define CORE_H
 
 #include <QObject>
-#include <QQueue>
-#include <QMutex>
 #include <QThread>
-#include <QPair>
 
 #include "FormController/FormController.h"
 #include "CalculatorController/CalculatorController.h"
@@ -18,6 +15,10 @@ public:
     ~Core();
 
 signals:
+
+    /*!
+     * \brief Сигнал добавления нового запроса на вычисление
+     */
     void signalSendResult(const double result, const int errorCode);
 
 private:
