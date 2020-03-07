@@ -27,7 +27,12 @@ HEADERS += \
     FormController/FormController.h \
     CalculatorController/CalculatorController.h
 
-RESOURCES += \
-    ./export/qml/qml.qrc
+#RESOURCES += \
+    #./export/qml/qml.qrc \
+ #   ../../../export/qml/qml.qrc
+
+DISTFILES += \
+    ../../../export/qml/main.qml \
+    ../../../export/qml/ButtonCalculator.qml
 
 LIBS += -lCalcLib
