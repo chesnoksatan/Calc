@@ -68,29 +68,12 @@ void CalculatorController::calculate()
     emit finished();
 }
 
-void CalculatorController::stringToExpression(int &TypeWork, double &OperandA,
-                                              double &OperandB, QString request)
-{
-    // Вычислим позицую оператора
-    int opPosition = request.indexOf(QRegExp("[-+/*]"));
-
-    // Все символы расположенные левее типа операции - первый операнд
-    OperandA = request.left(opPosition).toDouble();
-    // Все символы расположенные правее типа операции - второй операнд
-    OperandB = request.right(request.length() - opPosition - 1).toDouble();
-
-    if (request.at(opPosition) == '+') TypeWork = Operations::Plus;
-    else if (request.at(opPosition) == '-') TypeWork = Operations::Minus;
-    else if (request.at(opPosition) == '*') TypeWork = Operations::Multiplication;
-    else if (request.at(opPosition) == '/') TypeWork = Operations::Division;
-}
-
 QPair<double, int> CalculatorController::getAnswer(QString request)
 {
     int operationType, errorCode;
     double firstOperand, secondOperand, result;
 
-    // Преобразуем текущий запрос из строки в тип операции, операнд А и операнд Б
+    //! Преобразуем текущий запрос из строки в тип операции, операнд А и операнд Б
     stringToExpression(operationType, firstOperand, secondOperand, request);
 
     result = DoIt(operationType, firstOperand, secondOperand, errorCode);

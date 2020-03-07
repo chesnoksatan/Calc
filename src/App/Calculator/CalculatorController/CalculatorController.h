@@ -72,12 +72,6 @@ private:
     QQueue<QPair<double, int>> _queueResults; ///< Очередь результатов
 
     /*!
-     * \brief Функция преобразования строкового запроса в операнды и операцию
-     */
-    void stringToExpression(int &TypeWork, double &OperandA, double &OperandB,
-                            QString request);
-
-    /*!
      * \brief Вызывает функцию внешней библиотеки для вычисления запроса
      *        Добавляет результат вычисления и код ошибки в очередь результатов
      */
