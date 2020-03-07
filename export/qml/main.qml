@@ -12,6 +12,8 @@ ApplicationWindow {
     width: 400
     height: 600
 
+    color: "#f3e3e3e3"
+
     minimumWidth: 400
     minimumHeight: 600
 
@@ -71,8 +73,8 @@ ApplicationWindow {
         validator: RegExpValidator {regExp: calculatorRegExp}
 
         background: Rectangle {
-            color: "#ffffff"
-            border.color: "#DCDCDC"
+            color: "Transparent"
+            border.color: "DarkGray"
             border.width: 1
 
             anchors.fill: parent
@@ -105,21 +107,21 @@ ApplicationWindow {
             text: qsTr("/");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#bdbebd" : "#d3d3d3";
+            color: pressed ? "#f3bdbebd" : "#f3d3d3d3";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
             text: qsTr("*");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#bdbebd" : "#d3d3d3";
+            color: pressed ? "#f3bdbebd" : "#f3d3d3d3";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
             text: qsTr("+");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#bdbebd" : "#d3d3d3";
+            color: pressed ? "#f3bdbebd" : "#f3d3d3d3";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
@@ -127,28 +129,28 @@ ApplicationWindow {
             Layout.fillHeight: true;
             Layout.maximumWidth: root.width / 4
             Layout.fillWidth: true;
-            color: pressed ? "#bdbebd" : "#d3d3d3";
+            color: pressed ? "#f3bdbebd" : "#f3d3d3d3";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
             text: qsTr("7");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#d6d6d6" : "#eeeeee";
+            color: pressed ? "#f3d6d6d6" : "#f3eeeeee";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
             text: qsTr("8");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#d6d6d6" : "#eeeeee";
+            color: pressed ? "#f3d6d6d6" : "#f3eeeeee";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
             text: qsTr("9");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#d6d6d6" : "#eeeeee";
+            color: pressed ? "#f3d6d6d6" : "#f3eeeeee";
             onClicked: calcArea.text += text;
         }
 
@@ -157,7 +159,7 @@ ApplicationWindow {
             text: qsTr("=");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#bdbebd" : "#d3d3d3";
+            color: pressed ? "#f3bdbebd" : "#f3d3d3d3";
             Layout.rowSpan: 4;
             Layout.maximumWidth: root.width / 4;
             onClicked: {
@@ -180,21 +182,21 @@ ApplicationWindow {
             text: qsTr("4");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#d6d6d6" : "#eeeeee";
+            color: pressed ? "#f3d6d6d6" : "#f3eeeeee";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
             text: qsTr("5");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#d6d6d6" : "#eeeeee";
+            color: pressed ? "#f3d6d6d6" : "#f3eeeeee";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
             text: qsTr("6");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#d6d6d6" : "#eeeeee";
+            color: pressed ? "#f3d6d6d6" : "#f3eeeeee";
             onClicked: calcArea.text += text;
         }
 
@@ -202,21 +204,21 @@ ApplicationWindow {
             text: qsTr("1");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#d6d6d6" : "#eeeeee";
+            color: pressed ? "#f3d6d6d6" : "#f3eeeeee";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
             text: qsTr("2");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#d6d6d6" : "#eeeeee";
+            color: pressed ? "#f3d6d6d6" : "#f3eeeeee";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
             text: qsTr("3");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#d6d6d6" : "#eeeeee";
+            color: pressed ? "#f3d6d6d6" : "#f3eeeeee";
             onClicked: calcArea.text += text;
         }
 
@@ -224,21 +226,21 @@ ApplicationWindow {
             text: qsTr(".");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#bdbebd" : "#d3d3d3";
+            color: pressed ? "#f3bdbebd" : "#f3d3d3d3";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
             text: qsTr("0");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#d6d6d6" : "#eeeeee";
+            color: pressed ? "#f3d6d6d6" : "#f3eeeeee";
             onClicked: calcArea.text += text;
         }
         ButtonCalculator {
             text: qsTr("C");
             Layout.fillHeight: true;
             Layout.fillWidth: true;
-            color: pressed ? "#bdbebd" : "#d3d3d3";
+            color: pressed ? "#f3bdbebd" : "#f3d3d3d3";
             onClicked: calcArea.text = "";
         }
     }
@@ -306,8 +308,8 @@ ApplicationWindow {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
 
-        color: "#ffffff"
-        border.color: "#DCDCDC"
+        color: "Transparent"
+        border.color: "DarkGray"
         border.width: 1
 
         radius: 2
@@ -337,6 +339,10 @@ ApplicationWindow {
                 id: _console
 
                 anchors.fill: parent
+
+                anchors.topMargin: 2
+                anchors.leftMargin: 5
+
                 height: root.height / 12
 
                 font.pointSize: 10

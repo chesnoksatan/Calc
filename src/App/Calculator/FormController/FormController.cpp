@@ -5,7 +5,7 @@ FormController::FormController(QObject *parent) : QObject(parent)
     _engine = new QQmlApplicationEngine;
     _engine->rootContext()->setContextProperty("FormController", this);
 
-    QQmlComponent component(_engine, QUrl("qrc:/main.qml"));
+    QQmlComponent component(_engine, QUrl("../../../export/qml/main.qml"));
     mainWindow = component.create();
 
     readSettings();
