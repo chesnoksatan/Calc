@@ -1,6 +1,6 @@
 import QtQuick 2.10
 import QtQuick.Window 2.0
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 1.4 as OLD
 
@@ -19,16 +19,20 @@ ApplicationWindow {
 
     title: qsTr("Калькулятор")
 
+    // Регулярное выражение, которое контролирует ввод пользователя
     readonly property var calculatorRegExp: new RegExp(/^(\d+(\.\d+)?)(?:([-+/*])(\d+(\.\d+)?)){1}$/)
 
     onClosing: FormController.writeSettings()
 
+    // Установим зависимость между сигналом signalUpdateConsole и формой
     Connections {
         target: FormController
 
         onSignalUpdateConsole: {setMessage(errorCode, msg)}
     }
 
+    // Для каждого нового сообщения устанавливает его цвет изходя из значения errorCode
+    // Добавляет к каждому сообщению время, когда оно пришло
     function setMessage(errorCode, msg) {
         var date = new Date();
         var currentTime = '[' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + date.getMilliseconds() + "] ";
@@ -174,7 +178,7 @@ ApplicationWindow {
                 }
 
                 enabled = false;
-                enableBtn.start();
+                enableEqualBtn.start();
             }
         }
 
@@ -245,14 +249,6 @@ ApplicationWindow {
         }
     }
 
-    Timer {
-        id: enableBtn
-        repeat: false
-        running: false
-        interval: 500
-        onTriggered: {evalt.enabled = true}
-    }
-
     RowLayout {
         id: delayRow
         anchors.topMargin: 2
@@ -268,6 +264,7 @@ ApplicationWindow {
         Label {text: qsTr("Задержка") ;Layout.maximumHeight: 25}
         OLD.SpinBox {id: delay; Layout.fillWidth: true; minimumValue: 1}
         Button {
+            id: setDelay;
             text: qsTr("Установить");
             Layout.maximumHeight: 25;
             Layout.minimumHeight: 25;
@@ -275,7 +272,13 @@ ApplicationWindow {
                 border.color: "DarkGray";
                 color: parent.pressed ? "#d6d6d6" : "#eeeeee"
             }
-            onClicked: FormController.setDelay(delay.value);
+
+            onClicked: {
+                FormController.setDelay(delay.value);
+
+                enabled = false;
+                enableSetDelayBtn.start();
+            }
         }
     }
 
@@ -290,10 +293,10 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        Label {text: qsTr("QueueRequests:") ;Layout.maximumHeight: 25}
+        Label {text: qsTr("Очередь запросов:") ;Layout.maximumHeight: 25}
         Label {objectName: "QueueRequests"; horizontalAlignment: Text.AlignHCenter; Layout.fillWidth: true; Layout.maximumHeight: 25; text: "0";}
 
-        Label {text: qsTr("QueueResults:") ; Layout.minimumWidth: 127;Layout.maximumHeight: 25}
+        Label {text: qsTr("Очередь результатов:") ; Layout.minimumWidth: 127;Layout.maximumHeight: 25}
         Label {objectName: "QueueResults"; horizontalAlignment: Text.AlignHCenter; Layout.fillWidth: true; Layout.maximumHeight: 25; text: "0";}
     }
 
@@ -319,19 +322,12 @@ ApplicationWindow {
 
             anchors.fill: parent
 
-            interactive: true
+            contentHeight: _console.paintedHeight
+            contentWidth: _console.paintedWidth
+
             clip: true
 
-            function ensureVisible(r) {
-                if (contentX >= r.x)
-                    contentX = r.x;
-                else if (contentX+width <= r.x+r.width)
-                    contentX = r.x+r.width-width;
-                if (contentY >= r.y)
-                    contentY = r.y;
-                else if (contentY+height <= r.y+r.height)
-                    contentY = r.y+r.height-height;
-            }
+            boundsMovement: Flickable.StopAtBounds
 
             TextEdit {
                 id: _console
@@ -351,7 +347,22 @@ ApplicationWindow {
                 textFormat: TextEdit.RichText
             }
         }
+    }
 
-        ScrollBar {}
+    // Таймеры контроля многократного нажатия кнопок
+    Timer {
+        id: enableEqualBtn
+        repeat: false
+        running: false
+        interval: 500
+        onTriggered: {evalt.enabled = true}
+    }
+
+    Timer {
+        id: enableSetDelayBtn
+        repeat: false
+        running: false
+        interval: 500
+        onTriggered: {setDelay.enabled = true}
     }
 }
